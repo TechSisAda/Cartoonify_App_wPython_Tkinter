@@ -20,4 +20,4 @@ def cartoonify(image_path, output_path):
     pil_image = Image.fromarray(cartoon)
     pil_image.save(output_path)
 
-cartoonify('images/ada1.jpeg', 'images/ada2cartoon.jpeg')
+cartoonify('images/ada6.png', 'images/ada6cartoon.jpeg')

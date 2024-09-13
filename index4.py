@@ -36,4 +36,4 @@ def cartoonify(image_path, output_path):
     pil_image.save(output_path)
 
 # Properly call the function outside the definition
-cartoonify('images/ada1.jpeg', 'images/ada8_cartoon.jpeg')
+cartoonify('images/ada6.png', 'images/ada61_cartoon.jpeg')

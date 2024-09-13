@@ -11,25 +11,25 @@ def cartoonify(image_path, output_path):
         return
     
     # Resize image to speed up processing
-    img = cv2.resize(img, (800, 800))
+    img = cv2.resize(img, (550, 600))
     
     # Apply bilateral filter multiple times to achieve smoothing
     for _ in range(5):
-        img = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
+        img = cv2.bilateralFilter(img, d=9, sigmaColor=20, sigmaSpace=200)
     
     # Convert to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Apply median blur
-    gray = cv2.medianBlur(gray, 5)
+    gray = cv2.medianBlur(gray, 1)
     # Use adaptive thresholding to create an edge mask
     edges = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, 
-                                  cv2.THRESH_BINARY, blockSize=9, C=2)
+                                  cv2.THRESH_BINARY, blockSize=9, C=4)
     
     # Convert to a color image
-    color = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
+    # color = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
     
     # Combine edges and color
-    cartoon = cv2.bitwise_and(color, color, mask=edges)
+    cartoon = cv2.bitwise_and(img, img, mask=edges)
     
     # Convert the result to RGB and save using PIL to maintain JPEG quality and metadata
     cartoon = cv2.cvtColor(cartoon, cv2.COLOR_BGR2RGB)
@@ -37,4 +37,4 @@ def cartoonify(image_path, output_path):
     pil_image.save(output_path)
 
 # Example usage:
-cartoonify('images/ada2.jpeg', 'images/ada2CLR.jpeg')
+cartoonify('images/ada3.png', 'images/ada3CLR.jpeg')
